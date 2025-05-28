@@ -14,7 +14,9 @@
                 "${workspaceFolder}/Core/Inc",
                 "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
                 "${workspaceFolder}/Drivers/CMSIS/Include",
-                "${workspaceFolder}/app/retarget"
+                "${workspaceFolder}/app/retarget",
+                "${workspaceFolder}/app/u_read_line",
+                "${workspaceFolder}/app/mem"
             ],
             "defines": [
                 "USE_HAL_DRIVER",
