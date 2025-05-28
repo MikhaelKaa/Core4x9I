@@ -1,0 +1,30 @@
+{
+    "configurations": [
+        {
+            "name": "arm_c_cpp_properties",
+            "compilerPath": "C:/arm_tool/gcc/bin/arm-none-eabi-gcc.exe",
+            "includePath": [
+                "C:/arm_tool/gcc/arm-none-eabi/include",
+                "C:/arm_tool/gcc/arm-none-eabi/include/sys/",
+                "C:/arm_tool/gcc/lib/**",
+                "${workspaceRoot}\\Drivers\\**",
+                "${workspaceRoot}\\Core\\Src\\**",
+                "${workspaceRoot}\\Core\\Inc\\**",
+                "${workspaceFolder}/Drivers/STM32F4xx_HAL_Driver/Inc",
+                "${workspaceFolder}/Core/Inc",
+                "${workspaceFolder}/Drivers/CMSIS/Device/ST/STM32F4xx/Include",
+                "${workspaceFolder}/Drivers/CMSIS/Include"
+            ],
+            "defines": [
+                "USE_HAL_DRIVER",
+                "STM32F429xx",
+                "M4",
+                "GCC_ARMCM4"
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-arm"
+        }
+    ],
+    "version": 4
+}

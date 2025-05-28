@@ -1,0 +1,9 @@
+{
+	"cortex-debug.enableTelemetry": false,
+	//"cortex-debug.JLinkGDBServerPath": "C:/Software/JLink/JLinkGDBServerCL.exe",
+	"cortex-debug.armToolchainPath": "C:/arm_tool/gcc/bin/",
+  "cortex-debug.openocdPath": "C:/arm_tool/OpenOCD/xpack-openocd-0.11.0-3/bin/openocd.exe",
+  "files.associations": {
+    "main.h": "c"
+  },
+}
