@@ -31,6 +31,8 @@
 #include "ucmd.h"
 #include "memory_man.h"
 #include "term_gxf.h"
+#include "micros.h"
+#include "coremark.h"
 
 /* USER CODE END Includes */
 
@@ -69,6 +71,12 @@ command_t cmd_list[] = {
     .cmd  = "mem",
     .help = "memory man, use mem help",
     .fn   = ucmd_mem,
+  },
+
+  {
+    .cmd  = "coremark",
+    .help = "coremark",
+    .fn   = coremark,
   },
 
 
@@ -111,7 +119,7 @@ void show_version(void) {
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  us_init();
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -141,10 +149,11 @@ int main(void)
   ucmd_default_init();
   // uint32_t * mem_start = (uint32_t*)0xD0000000;
   // SDRAM base address for Bank 2
-#define SDRAM_BASE 0xD0000000
-// SDRAM size is 8MB
-#define SDRAM_SIZE 0x00800000
-// mem dump d0000000 1
+  #define SDRAM_BASE 0xD0000000
+  // SDRAM size is 8MB
+  #define SDRAM_SIZE 0x00800000
+  // printf("startup time: %ld\r\n", micros());
+  // mem dump d0000000 1
   /* USER CODE END 2 */
 
   /* Infinite loop */

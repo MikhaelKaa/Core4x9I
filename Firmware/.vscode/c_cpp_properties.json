@@ -16,13 +16,17 @@
                 "${workspaceFolder}/Drivers/CMSIS/Include",
                 "${workspaceFolder}/app/retarget",
                 "${workspaceFolder}/app/u_read_line",
-                "${workspaceFolder}/app/mem"
+                "${workspaceFolder}/app/mem",
+                "${workspaceFolder}/app/micros",
+                "${workspaceFolder}/app/coremark"
             ],
             "defines": [
                 "USE_HAL_DRIVER",
                 "STM32F429xx",
                 "M4",
-                "GCC_ARMCM4"
+                "GCC_ARMCM4",
+                "ITERATIONS=20",
+                "CLOCKS_PER_SEC=1000000"
             ],
             "cStandard": "c11",
             "cppStandard": "c++17",
