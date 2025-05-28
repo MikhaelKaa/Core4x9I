@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "retarget.h"
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,6 +42,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
+DMA_HandleTypeDef hdma_usart1_rx;
+DMA_HandleTypeDef hdma_usart1_tx;
 
 SDRAM_HandleTypeDef hsdram1;
 
@@ -51,6 +54,7 @@ SDRAM_HandleTypeDef hsdram1;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_FMC_Init(void);
 /* USER CODE BEGIN PFP */
@@ -90,11 +94,12 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART1_UART_Init();
   MX_FMC_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UART_Transmit(&huart1, "Device start\r\n", sizeof("Device start\r\n"), 10);
-  uint32_t * mem_start = 0xD0000000;
+  printf("Device start\r\n");
+  uint32_t * mem_start = (uint32_t*)0xD0000000;
   uint32_t mem_test = 0;
   /* USER CODE END 2 */
 
@@ -102,16 +107,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    HAL_UART_Transmit(&huart1, "Its work!!!\r\n", sizeof("Its work!!!\r\n"), 10);
-    HAL_Delay(500);
-
+    printf("Its work!!!\r\n");
+    
     *mem_start = mem_test;
     if(*mem_start == mem_test) {
-      HAL_UART_Transmit(&huart1, "mem ok\r\n", sizeof("mem ok\r\n"), 10);
+      printf("mem ok\r\n");
     } else {
-      HAL_UART_Transmit(&huart1, "mem fail\r\n", sizeof("mem fail\r\n"), 10);
+      printf("mem fail\r\n");
     }
     mem_test++;
+    printf_flush();
+    HAL_Delay(500);
     // mem_start++;
 
     /* USER CODE END WHILE */
@@ -204,6 +210,25 @@ static void MX_USART1_UART_Init(void)
   /* USER CODE BEGIN USART1_Init 2 */
 
   /* USER CODE END USART1_Init 2 */
+
+}
+
+/**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA2_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA2_Stream2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
+  /* DMA2_Stream7_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream7_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream7_IRQn);
 
 }
 
