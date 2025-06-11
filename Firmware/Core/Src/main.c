@@ -59,6 +59,21 @@ const unsigned char build_version[] = VERSION " " __DATE__ " "__TIME__;
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
+// SDRAM base address for Bank 2
+#define SDRAM_BASE 0xD0000000
+// SDRAM size is 8MB (8192*1024)
+#define SDRAM_SIZE 0x00800000
+
+// printf("sdram_buf adr 0x%08lx\r\n", (uint32_t)sdram_buf);
+// sdram_buf adr 0xd0000000
+__attribute__((section(".sdram_bss"))) volatile uint8_t sdram_buf[8192*1024];
+// __attribute__((section(".sdram_bss"))) volatile uint8_t sdram_buf_overflowed[1];
+// При перегенерации из MXCube файл STM32F429IGTx_FLASH.ld будет перезатерт,
+// поэтому необходимо его ревертнуть используя функционал гита (ну или другим способом).
+
+int ucmd_reset(int argc, char *argv[]);
+
 // define command list
 command_t cmd_list[] = {
   {
@@ -79,6 +94,12 @@ command_t cmd_list[] = {
     .fn   = coremark,
   },
 
+  {
+    .cmd  = "reset",
+    .help = "reset",
+    .fn   = ucmd_reset,
+  },
+
 
   {}, // null list terminator DON'T FORGET THIS!
 };
@@ -93,6 +114,12 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+int ucmd_reset(int argc, char *argv[]) {
+  NVIC_SystemReset();
+  return -1; // 0_o
+}
+
 void show_version(void) {
   
   printf("\r\n%s\r\n", build_version);
@@ -143,15 +170,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
   printf_init();
   show_version();
-  ucmd_default_init();
-  // uint32_t * mem_start = (uint32_t*)0xD0000000;
-  // SDRAM base address for Bank 2
-  #define SDRAM_BASE 0xD0000000
-  // SDRAM size is 8MB
-  #define SDRAM_SIZE 0x00800000
-  // printf("startup time: %ld\r\n", micros());
-  // mem dump d0000000 1
   
+  ucmd_default_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
