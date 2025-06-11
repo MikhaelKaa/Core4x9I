@@ -94,18 +94,15 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void show_version(void) {
+  
+  printf("\r\n%s\r\n", build_version);
 
-  char l[] = "████████████\000\045\033[H\033[2J\r\n\000\033[0m\r\n";
-  printf("%s", &(12*3+1)[l]);
-  for(uint8_t i = 0; i < 3; i++, (12*3+1)[l] -= 3) {
-    printf("\033[%dm\t\t%s\r\n", (12*3+1)[l], &0[l]);
-  }
-  printf("%s", &48[l]);
-
-  printf("%s\r\n", build_version);
   set_display_atrib(F_GREEN);
-  // printf ("MCU ID:  0x%08x\r\n", SIU->CHIPID_bit.ID);
-  // printf ("MCU REV: 0x%08x\r\n", SIU->CHIPID_bit.REV);
+  printf ("MCU DEVID:\t0x%08lx\r\n", HAL_GetDEVID());
+  printf ("MCU REVID:\t0x%08lx\r\n", HAL_GetREVID());
+  printf ("MCU UID0:\t0x%08lx\r\n", HAL_GetUIDw0());
+  printf ("MCU UID1:\t0x%08lx\r\n", HAL_GetUIDw1());
+  printf ("MCU UID2:\t0x%08lx\r\n", HAL_GetUIDw2());
   resetcolor();
 
   printf("System core clock %ld MHz\r\n", SystemCoreClock/1000000);
@@ -135,8 +132,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-// SCB_EnableICache();
-// SCB_EnableDCache();
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
