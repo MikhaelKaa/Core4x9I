@@ -31,7 +31,7 @@
 
 /* USER CODE END Includes */
 
-extern SDRAM_HandleTypeDef hsdram2;
+extern SDRAM_HandleTypeDef hsdram1;
 
 /* USER CODE BEGIN Private defines */
 

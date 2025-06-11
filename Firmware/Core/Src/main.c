@@ -135,7 +135,8 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+// SCB_EnableICache();
+// SCB_EnableDCache();
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -154,6 +155,7 @@ int main(void)
   #define SDRAM_SIZE 0x00800000
   // printf("startup time: %ld\r\n", micros());
   // mem dump d0000000 1
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
