@@ -18,7 +18,8 @@
                 "${workspaceFolder}/app/u_read_line",
                 "${workspaceFolder}/app/mem",
                 "${workspaceFolder}/app/micros",
-                "${workspaceFolder}/app/coremark"
+                "${workspaceFolder}/app/coremark",
+                "${workspaceFolder}/app/time"
             ],
             "defines": [
                 "USE_HAL_DRIVER",
@@ -28,7 +29,7 @@
                 "ITERATIONS=4096",
                 "CLOCKS_PER_SEC=1000000",
                 "COREMARK_TIME=micros",
-                "HAL_UART_xCallback"                
+                "HAL_UART_xCallback"
             ],
             "cStandard": "c11",
             "cppStandard": "c++17",
